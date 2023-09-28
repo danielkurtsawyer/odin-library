@@ -3,11 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exercise</title>
+    <title>Project: Library</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="container">
+        <div class="header">
+            <div class="site-name">Library</div>
+        </div>
+        <div class="main-content">
+            <dialog id="new-book-dialog">
+                <p>Add new book to library</p>
+                <form>
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" required>
+                    <label for="author">Author:</label>
+                    <input type="text" id="author" name="author" required>
+                    <label for="pages">Pages:</label>
+                    <input type="number" id="pages" name="pages" required>
+
+                    <div class="readContainer">
+                        <input type="checkbox" id="read" name="read" min="1" value="0">
+                        <label for="read">Have you read it?</label>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button id="confirm-button" type="submit">Confirm</button>
+                    </div>
+                </form>
+            </dialog>
+            <button type="button" class="book-button">NEW BOOK</button>
+            <div class="library">
+
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer-text">
+                Copyright 2023 <a href="https://github.com/danielkurtsawyer/odin-library">Daniel Sawyer</a>
+            </div>
+        </div>
+    </div>
     
 </body>
 </html>
