@@ -47,8 +47,6 @@ function displayBooks(){
         library.appendChild(bookDiv);
     });
 }
-const book1 = new Book("The Hobbit", "J.R.R Tolkien", 295, 0);
-const book2 = new Book("A Game of Thrones", "George R. R. Martin", 694, 1);
 
 bookButton.addEventListener("click", ()=>{bookForm.showModal()});
 readBox.addEventListener("change", (e)=>{
@@ -65,21 +63,5 @@ bookForm.addEventListener("submit", (e)=>{
     displayBooks();
     bookForm.close();
 })
-
-
-/*
-addBookToLibrary(book1);
-addBookToLibrary(book2);
-addBookToLibrary(book1);
-addBookToLibrary(book2);
-addBookToLibrary(book1);
-addBookToLibrary(book2);
-addBookToLibrary(book1);
-addBookToLibrary(book2);
-addBookToLibrary(book1);
-addBookToLibrary(book2);
-*/
-
-displayBooks();
 
 
