@@ -4,26 +4,38 @@ const bookForm = document.querySelector("#new-book-dialog");
 const readBox = document.querySelector("#read");
 const library = document.querySelector(".library");
 
-function Book(title, author, pages, read, index){
+function Book(title, author, pages, read){
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = Number(read);
-    this.index = index;
     this.info = function(){
         return title.concat(" by ", author, ", ", pages, " pages, ", read ? "read" : "not read yet");
+    }
+    this.toggleRead = function(){
+        this.read = Number(!this.read);
+        console.log(this.read);
     }
 }
 
 function removeBook(e){
     // extract book index from the index attribute
-    const bookIndex = e.target.getAttribute("index");
+    const bookIndex = Number(e.target.getAttribute("index"));
     // use the book index to find the book card for that book
-    const bookCard = document.querySelector(`.library .book:nth-child(${bookIndex+1})`);
+    const bookCard = document.querySelector(`.book:nth-child(${bookIndex + 1})`);
     // remove the book at that index
     myLibrary.splice(bookIndex, 1);
     // remove the book card element from the DOM
     library.removeChild(bookCard);
+
+    // recall displayBooks, since larger indices will have to be decremented by 1 or we will run into problems
+    displayBooks()
+}
+
+function changeReadStatus(e){
+    const bookIndex = Number(e.target.getAttribute("index"));
+    myLibrary[bookIndex].toggleRead();
+    displayBooks();
 }
 
 function addBookToLibrary(book){
@@ -35,6 +47,9 @@ function displayBooks(){
     while(library.firstChild){
         library.removeChild(library.lastChild);
     }
+    // index tracking variable
+    let index = 0;
+
     // for every book in the library, create a new book card with the book's information
     myLibrary.forEach((book) => {
         // create the book card 
@@ -48,10 +63,17 @@ function displayBooks(){
         // create the remove button
         const removeButton = document.createElement("button");
         removeButton.setAttribute("type", "button");
-        // add the book's index to the button element's attributes for easy extraction when removing books
-        removeButton.setAttribute("index", `${book.index}`);
+        // create the book's index to the button element's attributes for easy extraction when removing books
+        removeButton.setAttribute("index", index);
         removeButton.textContent = "remove";
         removeButton.addEventListener("click", removeBook);
+
+        // create the change read status button
+        const readButton = document.createElement("button");
+        readButton.setAttribute("type", "button");
+        readButton.setAttribute("index", index);
+        readButton.textContent = "change read status";
+        readButton.addEventListener("click", changeReadStatus);
 
         bookDiv.classList.add("book");
         titleDiv.textContent = book.title;
@@ -64,9 +86,12 @@ function displayBooks(){
         bookDiv.appendChild(pagesDiv);
         bookDiv.appendChild(readDiv);
         bookDiv.appendChild(removeButton);
+        bookDiv.appendChild(readButton);
 
         // add the newly created book card to the library
         library.appendChild(bookDiv);
+        // increment index variable
+        index++;
     });
 }
 
@@ -80,11 +105,8 @@ bookForm.addEventListener("submit", (e)=>{
     const author = e.target.author.value;
     const pages = e.target.pages.value;
     const read = e.target.read.value;
-    const index = myLibrary.length;
-    const tempBook = new Book(title, author, pages, read, index);
+    const tempBook = new Book(title, author, pages, read);
     addBookToLibrary(tempBook);
     displayBooks();
     bookForm.close();
 })
-
-
