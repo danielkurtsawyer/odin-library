@@ -4,15 +4,17 @@ const bookForm = document.querySelector("#new-book-dialog");
 const readBox = document.querySelector("#read");
 const library = document.querySelector(".library");
 
-function Book(title, author, pages, read){
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = Number(read);
-    this.info = function(){
+class Book{
+    constructor(title, author, pages, read){
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = Number(read);
+    }
+    info() {
         return title.concat(" by ", author, ", ", pages, " pages, ", read ? "read" : "not read yet");
     }
-    this.toggleRead = function(){
+    toggleRead() {
         this.read = Number(!this.read);
         console.log(this.read);
     }
