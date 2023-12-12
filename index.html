@@ -18,16 +18,25 @@
         <div class="main-content">
             <dialog id="new-book-dialog">
                 <p>Add new book to library</p>
-                <form>
-                    <label for="title">Title:</label>
-                    <input type="text" id="title" name="title" required>
-                    <label for="author">Author:</label>
-                    <input type="text" id="author" name="author" required>
-                    <label for="pages">Pages:</label>
-                    <input type="number" id="pages" name="pages" required>
+                <form novalidate>
+                    <div>
+                        <label for="title">Title:</label>
+                        <input type="text" id="title" name="title" minlength="2" maxlength="50" required>
+                        <span class="title-error"></span>
+                    </div>
+                    <div>
+                        <label for="author">Author:</label>
+                        <input type="text" id="author" name="author" minlength="2" maxlength="40" required>
+                        <span class="author-error"></span>
+                    </div>
+                    <div>
+                        <label for="pages">Pages:</label>
+                        <input type="number" id="pages" name="pages" min="1" required>
+                        <span class="pages-error"></span>
+                    </div>
 
                     <div class="readContainer">
-                        <input type="checkbox" id="read" name="read" min="1" value="0">
+                        <input type="checkbox" id="read" name="read" value="0">
                         <label for="read">Have you read it?</label>
                     </div>
                     <button id="confirm-button" type="submit">Confirm</button>
